@@ -1,0 +1,20 @@
+from openpyxl import load_workbook
+import pandas as pd
+import os
+
+
+os.chdir('C:\\Users\\b964873\\OneDrive - Cargill Inc\\Work\\Initiatives\\BRM Dashboard')
+
+
+file = 'Clarizen Time series Master data.xlsx'
+sheet = 'IT Project Status - GEOS + CASC'
+
+clarizen_df = pd.read_excel(file,sheet_name = sheet, header=0)
+
+#convert Task name to lower case to match with Apptio data
+clarizen_df['Task Name'] = clarizen_df['Task Name'].str.lower()
+clarizen_df.sort_values(by = ['Task Name','Month','Today'], inplace=True)
+
+clarizen_df['Month'] = clarizen_df['Month']+1
+
+clarizen_df.head()
